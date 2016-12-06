@@ -1,0 +1,53 @@
+<div class="navbar navbar-default">
+  <h3>Test Firebase Giochino scemo
+    <div style="float:right">
+      <small>USERNAME</small>
+      <input ng-model="nomeUtente" placeholder="Inserisci il tuo nome...">
+      <button class="btn btn-deafault" ng-click="main.creaUtente(nomeUtente);" ng-init="nomeUtente = main.nomeUtente">
+        Login
+      </button>
+    </div>
+  </h3>
+</div>
+
+<div class="myCont">
+  
+  Crea server &nbsp;
+  <input ng-model="nomeServer" placeholder="Inserisci il nome del server...">&nbsp;
+  <button class="btn btn-deafault" ng-click="main.creaServer(nomeServer);">
+    Crea
+  </button>
+  <hr>
+
+  <h3>Lista Server</h3>
+  <ul class="list-group">
+    <li class="list-group-item" ng-repeat="(server, val) in main.listaServer">
+      <span class="pull-left userLink" ng-click="main.eliminaServer(server)">x</span>&nbsp;&nbsp;
+      {{server}} 
+      <button class="pull-right" ng-click="main.connettiti(server)">Connettiti</button>
+    </li>
+  </ul>
+
+  <h3>{{main.serverId}}</h3>
+  <section ng-show="main.serverId">
+    <div class="game" ng-mousemove="main.inviaPosizione($event)">
+      <div class="utenti">
+          <div ng-repeat="(utente, info) in main.utenti">{{utente}}</div>
+      </div>
+      
+      <div class="utente" ng-repeat="(utente, info) in main.utenti" style="left:{{info.x}}px;top:{{info.y}}px">{{utente}}</div>
+
+
+      <div class="chat">
+        <ul class="chatbox">
+          <li ng-repeat="messaggio in main.chat">{{ messaggio.from }}: {{ messaggio.content }}</li>
+        </ul>
+        <form ng-submit="main.inviaMessaggio()">
+          <input type="text" ng-model="main.messaggio">
+          <input type="submit" value="Invia">
+        </form>
+      </div>
+    </div>
+  </section>
+
+</div>
