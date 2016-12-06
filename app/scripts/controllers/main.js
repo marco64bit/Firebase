@@ -8,16 +8,33 @@
  * Controller of the testApp
  */
 angular.module('testApp')
-  .controller('MainCtrl', function (FirebaseService) {
+  .controller('MainCtrl', function (FirebaseService, $rootScope) {
     var self = this;
 
     self.database = FirebaseService.database;
     self.listaServer = self.database;
-    self.nomeUtente = localStorage.testFireBaseMosse_nomeUtente;
+    self.nomeUtente = $rootScope.loggedUser ? $rootScope.loggedUser.displayName : undefined;
 
-    self.creaUtente = function(nomeUtente) {
-      localStorage.testFireBaseMosse_nomeUtente = nomeUtente;
-      self.nomeUtente = nomeUtente;
+    self.login = function(nomeUtente) {
+      var provider = new firebase.auth.GoogleAuthProvider();
+
+      firebase.auth().signInWithPopup(provider).then(function(result) {
+        var token = result.credential.accessToken;
+        console.log("access token = " + token)
+        $rootScope.loggedUser = result.user;
+        $rootScope.$apply();
+      }).catch(function(error) {
+        console.error(JSON.stringify(error))
+      });
+    }
+
+    self.logout = function() {
+      firebase.auth().signOut().then(function() {
+        $rootScope.loggedUser = undefined;
+        $rootScope.$apply();
+      }, function(error) {
+        // An error happened.
+      });
     }
 
     self.creaServer = function(nomeServer) {
@@ -32,15 +49,15 @@ angular.module('testApp')
     }
 
     self.connettiti = function(serverId) {
-      FirebaseService.connessione(serverId, self.nomeUtente);
-      console.log("connesso a " + serverId + " : " + self.nomeUtente);
+      FirebaseService.connessione(serverId, $rootScope.loggedUser.displayName);
+      console.log("connesso a " + serverId + " : " + $rootScope.loggedUser.displayName);
       self.serverId = FirebaseService.serverId;
       self.utenti = FirebaseService.utenti;
       self.chat = FirebaseService.chat;
     }
 
     self.inviaMessaggio = function() {
-    	FirebaseService.inviaMessaggio(self.nomeUtente, self.messaggio);
+    	FirebaseService.inviaMessaggio($rootScope.loggedUser.displayName, self.messaggio);
       self.messaggio = "";
     };
 

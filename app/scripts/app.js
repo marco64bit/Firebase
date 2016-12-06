@@ -18,6 +18,23 @@ angular
     'ngTouch',
     'firebase'
   ])
+  .run(function($rootScope) {
+      var config = {
+        apiKey: "AIzaSyAPC6K5W_8-yNzz8dHcfEgRYQqIQ31CdNU",
+        authDomain: "test-marco-p.firebaseapp.com",
+        databaseURL: "https://test-marco-p.firebaseio.com",
+        storageBucket: "test-marco-p.appspot.com",
+        messagingSenderId: "654705272114"
+      };
+      firebase.initializeApp(config);
+
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          $rootScope.loggedUser = user;
+        } 
+      });
+    
+  })
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
