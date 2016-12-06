@@ -9,3 +9,4 @@ Lanciare da console il comando `grunt` per bildare e  `grunt serve` per lanciare
 ## Testing
 
 Lanciare da console il comando `grunt test` per effettuare gli unit tests con karma.
+
