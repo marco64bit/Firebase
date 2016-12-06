@@ -1,12 +1,11 @@
-# test
+# Firebase test application
 
-This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
-version 0.15.1.
+Questo progetto contiene esempi di utilizzo di Firebase 
 
 ## Build & development
 
-Run `grunt` for building and `grunt serve` for preview.
+Lanciare da console il comando `grunt` per bildare e  `grunt serve` per lanciare il server in locale.
 
 ## Testing
 
-Running `grunt test` will run the unit tests with karma.
+Lanciare da console il comando `grunt test` per effettuare gli unit tests con karma.
