@@ -3,14 +3,34 @@
     <div style="float:right">
       <img height="30px" ng-if="loggedUser.photoURL" src="{{loggedUser.photoURL}}">
       <small>{{loggedUser.displayName ? loggedUser.displayName : 'utente non loggato'}}</small>
-      <button class="btn btn-deafault" ng-click="main.login();" ng-hide="loggedUser.uid">
-        Login
-      </button>
        <button class="btn btn-deafault" ng-click="main.logout();" ng-show="loggedUser.uid">
         Logout
       </button>
     </div>
   </h3>
+</div>
+
+<div ng-hide="loggedUser.uid">
+  <center>
+    <h2>Effettua il login</h2>
+    <hr>
+    <button class="btn btn-deafault" ng-click="main.login('Google');">
+      Login con Google
+    </button>
+    <br><br>
+    <button class="btn btn-deafault" ng-click="main.login('Facebook');">
+      Login con Facebook
+    </button>
+    <br><br>
+    <button class="btn btn-deafault">
+      Login con Twitter (TODO)
+    </button>
+    <br><br>
+    <button class="btn btn-deafault">
+      Login con GitHub (TODO)
+    </button>
+  </center>
+  
 </div>
 <div class="myCont" ng-show="loggedUser.uid">
   

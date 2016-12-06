@@ -15,8 +15,12 @@ angular.module('testApp')
     self.listaServer = self.database;
     self.nomeUtente = $rootScope.loggedUser ? $rootScope.loggedUser.displayName : undefined;
 
-    self.login = function(nomeUtente) {
-      var provider = new firebase.auth.GoogleAuthProvider();
+    self.login = function(nomeProvider) {
+
+      var provider = {
+        "Google": new firebase.auth.GoogleAuthProvider(),
+        "Facebook": new firebase.auth.FacebookAuthProvider()
+      }[nomeProvider];
 
       firebase.auth().signInWithPopup(provider).then(function(result) {
         var token = result.credential.accessToken;
