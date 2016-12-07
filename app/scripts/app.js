@@ -18,7 +18,7 @@ angular
     'ngTouch',
     'firebase'
   ])
-  .run(function($rootScope) {
+  .run(function() {
       var config = {
         apiKey: "AIzaSyAPC6K5W_8-yNzz8dHcfEgRYQqIQ31CdNU",
         authDomain: "test-marco-p.firebaseapp.com",
@@ -27,13 +27,6 @@ angular
         messagingSenderId: "654705272114"
       };
       firebase.initializeApp(config);
-
-      firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-          $rootScope.loggedUser = user;
-        } 
-      });
-    
   })
   .config(function ($routeProvider) {
     $routeProvider

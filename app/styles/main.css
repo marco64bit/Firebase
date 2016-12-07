@@ -103,10 +103,14 @@ body {
   border-radius: 200px;
   width: 100px;
   height: 100px;
-  background: red;
   position: absolute;
   line-height: 100px;
   text-align: center; 
+  background-size: 100%;
+  background-color: red;
+  color: white;
+  font-weight: bold; 
+  background-repeat: no-repeat;
 }
 
 .utenti {

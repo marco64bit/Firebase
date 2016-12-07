@@ -1,7 +1,7 @@
 <div class="navbar navbar-default">
-  <h3>Test Firebase Giochino scemo
+  <h3>Test Firebase Agar.io dei poveri
     <div style="float:right">
-      <img height="30px" ng-if="loggedUser.photoURL" src="{{loggedUser.photoURL}}">
+      <img height="30px" ng-if="loggedUser.photoURL" ng-src="{{loggedUser.photoURL}}">
       <small>{{loggedUser.displayName ? loggedUser.displayName : 'utente non loggato'}}</small>
        <button class="btn btn-deafault" ng-click="main.logout();" ng-show="loggedUser.uid">
         Logout
@@ -47,6 +47,7 @@
       <span class="pull-left userLink" ng-click="main.eliminaServer(server)">x</span>&nbsp;&nbsp;
       {{server}} 
       <button class="pull-right" ng-click="main.connettiti(server)">Connettiti</button>
+      <span class="badge pull-right">{{main.utentiConnessi[server].count}}</span>
     </li>
   </ul>
 
@@ -57,7 +58,7 @@
           <div ng-repeat="(utente, info) in main.utenti">{{utente}}</div>
       </div>
       
-      <div class="utente" ng-repeat="(utente, info) in main.utenti" style="left:{{info.x}}px;top:{{info.y}}px">{{utente}}</div>
+      <div class="utente" ng-repeat="(utente, info) in main.utenti" style="left:{{info.x}}px;top:{{info.y}}px; background-image: url('{{info.photoURL}}')">{{utente}}</div>
 
 
       <div class="chat">
@@ -65,7 +66,7 @@
           <li ng-repeat="messaggio in main.chat">{{ messaggio.from }}: {{ messaggio.content }}</li>
         </ul>
         <form ng-submit="main.inviaMessaggio()">
-          <input type="text" ng-model="main.messaggio">
+          <input type="text" ng-model="main.messaggio" autofocus>
           <input type="submit" value="Invia">
         </form>
       </div>

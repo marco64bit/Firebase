@@ -8,37 +8,20 @@
  * Controller of the testApp
  */
 angular.module('testApp')
-  .controller('MainCtrl', function (FirebaseService, $rootScope) {
+  .controller('MainCtrl', function (FirebaseService, NotificationService, $rootScope) {
     var self = this;
 
     self.database = FirebaseService.database;
     self.listaServer = self.database;
+    self.utentiConnessi = FirebaseService.utentiConnessi;
     self.nomeUtente = $rootScope.loggedUser ? $rootScope.loggedUser.displayName : undefined;
 
     self.login = function(nomeProvider) {
-
-      var provider = {
-        "Google": new firebase.auth.GoogleAuthProvider(),
-        "Facebook": new firebase.auth.FacebookAuthProvider()
-      }[nomeProvider];
-
-      firebase.auth().signInWithPopup(provider).then(function(result) {
-        var token = result.credential.accessToken;
-        console.log("access token = " + token)
-        $rootScope.loggedUser = result.user;
-        $rootScope.$apply();
-      }).catch(function(error) {
-        console.error(JSON.stringify(error))
-      });
+      FirebaseService.login(nomeProvider);
     }
 
     self.logout = function() {
-      firebase.auth().signOut().then(function() {
-        $rootScope.loggedUser = undefined;
-        $rootScope.$apply();
-      }, function(error) {
-        // An error happened.
-      });
+      FirebaseService.logout();
     }
 
     self.creaServer = function(nomeServer) {
@@ -58,6 +41,9 @@ angular.module('testApp')
       self.serverId = FirebaseService.serverId;
       self.utenti = FirebaseService.utenti;
       self.chat = FirebaseService.chat;
+      self.utenti.$watch(function(utenti) {
+          controlloUtentiConnessi(utenti);
+      });
     }
 
     self.inviaMessaggio = function() {
@@ -67,6 +53,28 @@ angular.module('testApp')
 
     self.inviaPosizione = function(e) {
       FirebaseService.inviaPosizione(e.offsetX, e.offsetY);
+    }
+
+    var controlloUtentiConnessi = function(utenti) { 
+      var i = 0;
+      angular.forEach(self.utenti, function() {
+        i ++;
+      })
+
+      if(self.count) {
+        if(self.count < i) {
+          NotificationService.notify({"title": "Un utente si è connesso a  " + self.serverId});
+        }else if(self.count > i) {
+          NotificationService.notify({"title": "Un utente si è disconnesso da " + self.serverId});
+        }
+        
+      } 
+      self.count = i;
+    }
+
+    window.onbeforeunload = function() {
+      console.info("stai chiudendo questa pagina")
+      FirebaseService.disconnetti();
     }
 
   });
