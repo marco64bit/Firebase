@@ -53,7 +53,8 @@
 
   <h3>{{main.serverId}}</h3>
   <section ng-show="main.serverId">
-    <div class="game" ng-mousemove="main.inviaPosizione($event)">
+    <div class="game">
+    <div class="game-layer" ng-mousemove="main.inviaPosizione($event)"></div>
       <div class="utenti">
           <div ng-repeat="(utente, info) in main.utenti">{{utente}}</div>
       </div>
