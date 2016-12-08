@@ -142,3 +142,9 @@ body {
   max-height: 250px;
   overflow-y: auto; 
 }
+
+.qrcode {
+  position: absolute;
+  right: 15px;
+  top: 75px;
+}

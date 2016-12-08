@@ -8,7 +8,7 @@
  * Controller of the testApp
  */
 angular.module('testApp')
-  .controller('MainCtrl', function (FirebaseService, NotificationService, $rootScope) {
+  .controller('FirebaseDbAndAuthenticationCtrl', function (FirebaseService, NotificationService, $rootScope) {
     var self = this;
 
     self.database = FirebaseService.database;

@@ -1,0 +1,42 @@
+<div class="navbar navbar-default">
+  <h3>Test Firebase Messaging usage
+  </h3>
+</div>
+
+<div class="qrcode hidden-xs hidden-sm"><img src="/images/qrMessaging.png"></img></div>
+
+<div class="container">
+	<div class="row">
+		<b style="color:red">ATTENZIONE: solo per questa demo manderemo notifiche del client, è sempre il sever che invia in quanto detiene la SECRET KEY per inviare notifiche, che non deve esser contenuta nel codice del client per motivi di sicurezza</b>
+		<br><br>
+		<div class="col-md-6">
+			<label>Title</label><br>
+			<input ng-model="messaging.notification.title">
+			<br>
+			<label>body</label><br>
+			<input ng-model="messaging.notification.body">
+			<br>
+			<label>Click action</label><br>
+			<input ng-model="messaging.notification.click_action">
+			<br><br>
+			<button class="btn btn-primary" ng-click="messaging.sendNotification()">Invia Notification</button>
+		</div>
+		<div class="col-md-6">
+			<label>campo custom 1</label><br>
+			<input ng-model="messaging.data.custom1">
+			<br>
+			<label>campo custom 2</label><br>
+			<input type="date" ng-model="messaging.data.custom2">
+			<br>
+			<label>campo custom 3</label><br>
+			<input type="number" ng-model="messaging.data.custom3">
+			<br><br>
+			<button class="btn btn-success" ng-click="messaging.sendData()">Invia Data</button>
+		</div>
+	</div>
+	<br><br><br>
+	<div class="row">
+		<input ng-model="messaging.subscribedTopicName"><button class="btn btn-default" ng-click="messaging.subscribe()" ng-disabled="messaging.subscribed || !messaging.subscribedTopicName">Subscribe</button>
+		<pre>{{messaging.newData | json}}</pre>
+	</div>
+</div>

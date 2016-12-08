@@ -30,17 +30,22 @@ angular
   })
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
+      .when('/dbAndAuthentication', {
+        templateUrl: 'views/firebaseDbAndAuthentication.html',
+        controller: 'FirebaseDbAndAuthenticationCtrl',
         controllerAs: 'main'
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
+      .when('/storage', {
+        templateUrl: 'views/firebaseStorage.html',
+        controller: 'FirebaseStorageCtrl',
+        controllerAs: 'storage'
+      })
+      .when('/messaging', {
+        templateUrl: 'views/firebaseMessaging.html',
+        controller: 'FirebaseMessagingCtrl',
+        controllerAs: 'messaging'
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/dbAndAuthentication'
       });
   });
